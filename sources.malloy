@@ -1,9 +1,9 @@
-source: customers is machine_demo.table('../data/customers.csv') extend {
+source: customers is duckdb.table('../data/customers.csv') extend {
     primary_key: customer_id
     measure: customer_cnt is count()
 }
 
-source: locations is machine_demo.table('../data/locations.csv') extend {
+source: locations is duckdb.table('../data/locations.csv') extend {
     primary_key: location_id
     measure: location_cnt is count()
     join_one: customers on customers.customer_id = customer_id
@@ -14,7 +14,7 @@ source: machines is duckdb.table('../data/machines.csv') extend {
     measure: machine_cnt is count()
 }
 
-source: install_base is machine_demo.table('../data/install_base.csv') extend {
+source: install_base is duckdb.table('../data/install_base.csv') extend {
     measure: installs_cnt is count()
     join_one: machines on machines.machine_nr = machine_nr
     join_one: locations on locations.location_id = location_id
@@ -31,7 +31,7 @@ source: install_base is machine_demo.table('../data/install_base.csv') extend {
     }
 }  
 
-source: states is machine_demo.table('../data/states.csv') extend {
+source: states is duckdb.table('../data/states.csv') extend {
     timezone: 'America/Mexico_City'
     join_one: machines on machines.machine_nr = machine_nr
     measure:
@@ -44,10 +44,11 @@ source: states is machine_demo.table('../data/states.csv') extend {
                         + (minute(end_time) - minute(start_time))
 }
 
-source: event_logs is machine_demo.table('../data/event_logs.csv') extend {
+source: event_logs is duckdb.table('../data/event_logs.csv') extend {
     primary_key: event_id
     join_one: machines on machines.machine_nr = machine_nr
     measure: 
         event_cnt is count()
         machines_with_events_cnt is count(machine_nr) 
 }
+
