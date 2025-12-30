@@ -35,10 +35,9 @@ source: states is duckdb.table('./data/states.csv') extend {
     timezone: 'America/Mexico_City'
     join_one: machines on machines.machine_nr = machine_nr
     measure:
-        machine_cnt is count(machine_nr)
-        
+        machine_cnt is count(machine_nr)        
         row_cnt is count()
-        
+        total_state_duration is sum(state_duration)
     dimension:
         state_duration is (hour(end_time) - hour(start_time))*60 
                         + (minute(end_time) - minute(start_time))
@@ -51,3 +50,4 @@ source: event_logs is duckdb.table('./data/event_logs.csv') extend {
         event_cnt is count()
         machines_with_events_cnt is count(machine_nr) 
 }
+
