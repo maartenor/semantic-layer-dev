@@ -1,4 +1,4 @@
-import "sources.malloy"
+import "sources_psql.malloy" -- || import "sources_duckdb.malloy"
 
 run: customers -> {
   select: customer_name, country, customer_id
@@ -9,6 +9,11 @@ run: customers -> {
 run: states -> {
     group_by: machine_nr
     aggregate: row_cnt
+}
+
+run: states -> {
+    group_by: machine_nr
+    aggregate: total_state_duration
 }
 
 run: event_logs -> {
@@ -34,9 +39,6 @@ run: install_base -> {
     aggregate: machines_per_location is count(machine_nr)
   }
 }
-
--- Measure that shows amount of machines per customer where machines have events logged
-
 
 -- Show top 5 locations by amount of machines registered per location in install_base
 run: install_base -> top_5_locations + { }
