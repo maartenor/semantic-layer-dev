@@ -1,4 +1,4 @@
-import "sources_psql.malloy" -- || import "sources_duckdb.malloy"
+import "sources.malloy" -- || "sources_psql.malloy" -- || import "sources_duckdb.malloy"
 
 run: customers -> {
   select: customer_name, country, customer_id
@@ -45,3 +45,4 @@ run: install_base -> top_5_locations + { }
 
 -- Show top 5 customers by amount of machines registered per location in install_base
 run: install_base -> top_5_customers + { }
+
