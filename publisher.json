@@ -1,5 +1,6 @@
 {
-  "name": "semantic-layer-demo",
-  "version": "0.1.0",
-  "description": "Machine demo semantic models using duckdb"
+  "name": "semantic-layer-demo-psql",
+  "version": "0.1.1",
+  "description": "Machine demo semantic models using local psql database; as defined in publisher.config.json > projects > connections"
 }
+
